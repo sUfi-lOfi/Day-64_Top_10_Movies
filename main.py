@@ -34,8 +34,9 @@ class Movie(db.Model):
 #----------------------------------------Home Page----------------------------------------#
 @app.route("/")
 def home():
-    movies = Movie.query.all()
-    return render_template("index.html",movies = sorted(movies,key = lambda movie : movie.ranking,reverse=True))
+    result = db.session.execute(db.select(Movie).order_by(Movie.ranking))
+    movies = reversed(result.scalars().all())
+    return render_template("index.html",movies = movies)
 
 #------------------------------------Adding a movie--------------------------------------#
 
