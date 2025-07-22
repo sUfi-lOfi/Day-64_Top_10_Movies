@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="heading">Add a Movie</h1>
+    <form action="{{url_for('add_movie')}}" method="post">
+    {{form.hidden_tag()}}
+    {{form.title.label(class="form-label")}}
+    {{form.title(class="form-control")}}
+    {{form.year.label(class = "form-label")}}
+    {{form.year(class="form-control")}}
+    {{form.description.label(class="form-label")}}
+    {{form.description(class="form-control")}}
+    {{form.rating.label(class="form-label")}}
+    {{form.rating(class="form-control")}}
+    {{form.ranking.label(class="form-label")}}
+    {{form.ranking(class="form-control")}}
+    {{form.review.label(class="form-label")}}
+    {{form.review(class="form-control")}}
+    {{form.img_url.label(class="form-label")}}
+    {{form.img_url(class="form-control")}}
+    <br>
+    <br>
+    {{form.submit(class = "btn btn-primary")}}
+        </form>
+</div>
+{% endblock %}
