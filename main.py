@@ -71,24 +71,10 @@ def delete_movie(movie_id):
 @app.route("/update?id=<int:movie_id>",methods=["GET","POST"])
 def update_movie(movie_id):
     movie = Movie.query.get_or_404(movie_id)
-    form = AddMovie()
-    if request.method == 'GET':
-        form.title.data = movie.title
-        form.year.data = movie.year
-        form.description.data  =  movie.description
-        form.rating.data = movie.rating
-        form.ranking.data = movie.ranking
-        form.review.data = movie.review
-        form.img_url.data = movie.img_url
-        form.submit.label.text = "Update"
+    form = AddMovie(obj=movie)
+    form.submit.label.text = "Update"
     if form.validate_on_submit():
-       movie.title =  form.title.data
-       movie.year =  form.year.data
-       movie.description = form.description.data
-       movie.rating = form.rating.data
-       movie.ranking = form.ranking.data
-       movie.review = form.review.data
-       movie.img_url = form.img_url.data
+       form.populate_obj(movie)
        db.session.commit()
        return  redirect("/")
     return render_template("edit.html",form=form,movie_id=movie_id)
